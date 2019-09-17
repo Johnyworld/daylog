@@ -1,0 +1,80 @@
+type User {
+  id: ID! 
+  username: String!
+  email: String!
+  fullname: String!
+  avatar: String
+  bio: String
+  followers: [User!]!
+  following: [User!]!
+  posts: [Post!]!
+  likes: [Like!]!
+  favorites: [Doing!]!
+  comments: [Comment!]!
+  loginSecret: String
+  postsCount: Int!
+  likesTotal: Int!
+  followersCount: Int!
+  followingCount: Int!
+  isFollowing: Boolean!
+  isSelf: Boolean!
+}
+
+type Post {
+  id: ID!
+  user: User!
+  doing: Doing!
+  location: String
+  score: String
+  startAt: String!
+  endAt: String
+  comments: [Comment!]!
+  likes: [Like!]!
+  createdAt: String!
+  updatedAt: String!
+  likesCount: Int!
+  commentsCount: Int!
+  isLiked: Boolean!
+  blocks: Int!
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  user: User!
+  post: Post!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Like {
+  id: ID!
+  user: User!
+  post: Post!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  doings: [Doing!]!
+}
+
+type Doing {
+  id: ID!
+  name: String!
+  color: String!
+  icon: String!
+  category: Category!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Review {
+  id: ID!
+  text: String!
+  when: String!
+  createdAt: String!
+  updatedAt: String!
+}

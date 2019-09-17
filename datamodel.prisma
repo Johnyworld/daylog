@@ -1,4 +1,70 @@
 type User {
   id: ID! @id
+  username: String! @unique
+  email: String! @unique
+  fullname: String!
+  avatar: String
+  bio: String
+  followers: [User!]! @relation(name: "Follow")
+  following: [User!]! @relation(name: "Follow")
+  posts: [Post!]! @relation(name: "Posts_User")
+  likes: [Like!]! @relation(name: "Likes_User")
+  favorites: [Doing!]!
+  comments: [Comment!]! @relation(name: "Comments_User")
+  loginSecret: String
+}
+
+type Post {
+  id: ID! @id
+  user: User! @relation(name: "Posts_User")
+  doing: Doing!
+  location: String
+  score: String
+  startAt: DateTime!
+  endAt: DateTime
+  comments: [Comment!]! @relation(name: "Comments_Post")
+  likes: [Like!]! @relation(name: "Likes_Post")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Comment {
+  id: ID! @id
+  text: String!
+  user: User! @relation(name: "Comments_User")
+  post: Post! @relation(name: "Comments_Post")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Like {
+  id: ID! @id
+  user: User! @relation(name: "Likes_User")
+  post: Post! @relation(name: "Likes_Post")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Category {
+  id: ID! @id
   name: String!
+  doings: [Doing!]! @relation(name: "Doings_Category")
+}
+
+type Doing {
+  id: ID! @id 
+  name: String!
+  color: String!
+  icon: String!
+  category: Category! @relation(name: "Doings_Category")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Review {
+  id: ID! @id
+  text: String!
+  when: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
