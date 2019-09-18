@@ -5,6 +5,7 @@ type User {
   fullname: String!
   avatar: String
   bio: String
+  lang: String
   followers: [User!]!
   following: [User!]!
   posts: [Post!]!
