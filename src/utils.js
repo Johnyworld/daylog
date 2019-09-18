@@ -2,6 +2,7 @@ import "./env";
 import { words } from './words';
 import nodemailer from 'nodemailer';
 import sgTransport from 'nodemailer-sendgrid-transport';
+import jwt from 'jsonwebtoken';
 
 export const showMessage = (lang, category, item) => {
     if ( lang === 'KR' ) return require("./lang/kr.json")[category][item];
@@ -33,7 +34,24 @@ export const sendSecretMail = (address, secret, username, lang) => {
         from : "johnyworld@naver.com",
         to : address,
         subject,
-        html: `<span style="font-size:16px">${greeting} <strong>${username}</strong>${html}</span><br/><br/><strong style="background-color:#1a9df9; color: white; font-size:32px; padding: 5px 10px;">${secret}</strong>` 
+        html: `
+            <span style="font-size:16px">
+                ${greeting} 
+                <strong>${username}</strong>
+                ${html}
+            </span>
+            <br/><br/>
+            <strong style="
+                background-color:#1a9df9; 
+                color: white; 
+                font-size:32px; 
+                padding: 5px 10px;"
+            >
+                ${secret}
+            </strong>
+        ` 
     }
     return sendMail(email);
 }
+
+export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET);
