@@ -20,9 +20,10 @@ type Post {
   user: User! @relation(name: "Posts_User")
   doing: Doing!
   location: String
-  score: String
-  startAt: DateTime!
-  endAt: DateTime
+  score: Int
+  yyyymmdd: String
+  startAt: Int
+  endAt: Int
   comments: [Comment!]! @relation(name: "Comments_Post")
   likes: [Like!]! @relation(name: "Likes_Post")
   createdAt: DateTime! @createdAt

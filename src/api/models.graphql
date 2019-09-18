@@ -26,9 +26,10 @@ type Post {
   user: User!
   doing: Doing!
   location: String
-  score: String
-  startAt: String!
-  endAt: String
+  score: Int
+  yyyymmdd: String
+  startAt: Int
+  endAt: Int
   comments: [Comment!]!
   likes: [Like!]!
   createdAt: String!

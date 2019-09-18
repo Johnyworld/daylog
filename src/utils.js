@@ -55,3 +55,12 @@ export const sendSecretMail = (address, secret, username, lang) => {
 }
 
 export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET);
+
+export const timeToBlock = ( hour, minute ) => {
+    return hour*4 + Math.floor(minute/15);
+}
+
+export const getYyyymmdd = ( year, month, date ) => {
+    month += 1;
+    return [ year, (month>9?'':"0")+month, (date>9?'':"0")+date ].join('');
+}
