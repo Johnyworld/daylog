@@ -68,6 +68,10 @@ type Doing {
   name: String!
   color: String!
   icon: String!
+  author: String!
+  authorId: String!
+  posts: [Post!]!
+  followers: [User!]!
   category: Category!
   createdAt: String!
   updatedAt: String!

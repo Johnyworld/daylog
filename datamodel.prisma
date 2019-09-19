@@ -10,15 +10,16 @@ type User {
   following: [User!]! @relation(name: "Follow")
   posts: [Post!]! @relation(name: "Posts_User")
   likes: [Like!]! @relation(name: "Likes_User")
-  favorites: [Doing!]!
+  doings: [Doing!]! @relation(name: "Doings_User")
   comments: [Comment!]! @relation(name: "Comments_User")
+  reviews: [Review!]! @relation(name: "Review_User")
   loginSecret: String
 }
 
 type Post {
   id: ID! @id
   user: User! @relation(name: "Posts_User")
-  doing: Doing!
+  doing: Doing! @relation(name: "Posts_Doing")
   location: String
   score: Int
   yyyymmdd: String
@@ -58,6 +59,10 @@ type Doing {
   name: String!
   color: String!
   icon: String!
+  author: String! 
+  authorId: String!
+  posts: [Post!]! @relation(name: "Posts_Doing")
+  followers: [User!]! @relation(name: "Doings_User")
   category: Category! @relation(name: "Doings_Category")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -67,6 +72,7 @@ type Review {
   id: ID! @id
   text: String!
   when: String!
+  user: User! @relation(name: "Review_User")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
