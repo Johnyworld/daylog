@@ -1,0 +1,5 @@
+type Query {
+    seeDoingsAll: [Doing!]!
+    seeDoingsByCategory(category:String!): [Doing!]!
+    seeFollowedDoings(username:String!): [Doing!]!
+}
