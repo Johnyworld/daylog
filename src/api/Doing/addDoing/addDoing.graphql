@@ -1,0 +1,8 @@
+type Mutation {
+    addDoing(
+        name:String!, 
+        color:String!, 
+        icon:String!, 
+        categoryId:String!
+    ) : Doing!
+}
