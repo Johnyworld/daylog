@@ -1,0 +1,13 @@
+import { prisma } from "../../../../generated/prisma-client";
+
+export default {
+    Query : {
+        seeFeed : (_, __, {request, isAuthenticated}) => {
+            isAuthenticated(request);
+            const { user } = request;
+            return prisma.posts({
+                where: { user: { followers_some: { id: user.id } } }
+            })
+        }
+    }
+}
