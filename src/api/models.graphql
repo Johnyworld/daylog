@@ -10,8 +10,9 @@ type User {
   following: [User!]!
   posts: [Post!]!
   likes: [Like!]!
-  favorites: [Doing!]!
+  doings: [Doing!]!
   comments: [Comment!]!
+  reviews: [Review!]!
   loginSecret: String
   postsCount: Int!
   likesTotal: Int!
@@ -81,6 +82,7 @@ type Review {
   id: ID!
   text: String!
   when: String!
+  user: User!
   createdAt: String!
   updatedAt: String!
 }
