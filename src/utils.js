@@ -64,3 +64,19 @@ export const getYyyymmdd = ( year, month, date ) => {
     month += 1;
     return [ year, (month>9?'':"0")+month, (date>9?'':"0")+date ].join('');
 }
+
+export const getTotalBlocks = (posts) => {
+    let total = 0;
+    posts.map(post => total += post.endAt - post.startAt);
+    return total;
+}
+
+export const getAverageScore = (posts) => {
+    let total = 0;
+    let hasScore = 0;
+    posts.map(post => { 
+        if ( post.score ) hasScore += 1; 
+        total += post.score;
+    });
+    return (total / hasScore).toFixed(1);
+}

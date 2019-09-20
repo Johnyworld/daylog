@@ -5,13 +5,7 @@ type Query {
 type DayLog {
     dayReviews: [Review!]!
     dayComments: [Comment!]!
-    averageScore : Float!
-    doingLogs : [DoingLog!]!
+    averageScore: Float!
+    doingLogs: [DoingLog!]!
     posts: [Post!]!
-}
-
-type DoingLog {
-    name: String!
-    blocks: Int!
-    percent: Int!
 }

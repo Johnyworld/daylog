@@ -8,9 +8,3 @@ type MonthLog {
     averageScore: Float!
     doingLogs: [DoingLog!]!
 }
-
-type DoingLog {
-    name: String!
-    blocks: Int!
-    percent: Int! 
-}

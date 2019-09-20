@@ -93,3 +93,9 @@ type Review {
   updatedAt: String!
   likesCount: Int!
 }
+
+type DoingLog {
+    name: String!
+    blocks: Int!
+    percent: Int!
+}

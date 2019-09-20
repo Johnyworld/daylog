@@ -1,4 +1,5 @@
 import { prisma } from "../../../../generated/prisma-client";
+import { getTotalBlocks, getAverageScore } from "../../../utils";
 
 export default {
     Query : {
@@ -7,18 +8,8 @@ export default {
                 where: { yyyymmdd, user: { username } }
             });
             
-            let totalBlocks = (( total=0 )=>{
-                posts.map(post => total += post.endAt - post.startAt);
-                return total;
-            })();
-
-            let averageScore = (( total=0, hasScore=0 )=>{
-                posts.map(post => { 
-                    if ( post.score ) hasScore += 1; 
-                    return total += post.score;
-                });
-                return (total / hasScore).toFixed(1);
-            })();
+            let totalBlocks = getTotalBlocks(posts);
+            let averageScore = getAverageScore(posts);
 
             const doingLogs = await posts.map(async post => {
                 const blocks = post.endAt - post.startAt;
