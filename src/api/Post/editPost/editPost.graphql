@@ -1,0 +1,18 @@
+enum TYPES {
+    SCORE
+    LOCATION
+    STARTAT
+    ENDAT
+    DOING
+}
+type Mutation {
+    editPost(
+        id:String!, 
+        doingId:String, 
+        location:String, 
+        score:Float,
+        startAt:Int,
+        endAt:Int, 
+        type:TYPES
+    ): Post!
+}

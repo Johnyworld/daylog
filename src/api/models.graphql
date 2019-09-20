@@ -27,7 +27,7 @@ type Post {
   user: User!
   doing: Doing!
   location: String
-  score: Int
+  score: Float
   yyyymmdd: String
   startAt: Int
   endAt: Int

@@ -21,7 +21,7 @@ type Post {
   user: User! @relation(name: "Posts_User")
   doing: Doing! @relation(name: "Posts_Doing")
   location: String
-  score: Int
+  score: Float
   yyyymmdd: String
   startAt: Int
   endAt: Int
