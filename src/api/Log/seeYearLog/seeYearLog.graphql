@@ -1,0 +1,8 @@
+type Query {
+    seeYearLog(username:String!, yyyy:String!): YearLog!
+}
+
+type YearLog {
+    averageScore: Float!
+    doingLogs: [DoingLog!]!
+}
