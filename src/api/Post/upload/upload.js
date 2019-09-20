@@ -11,7 +11,7 @@ export default {
             const yyyymmdd = getYyyymmdd( new Date().getFullYear(), new Date().getMonth(), new Date().getDate() );
             const post = await prisma.createPost({ 
                 location, score, yyyymmdd,
-                startAt,
+                startAt, endAt: startAt+1,
                 user: { connect : { id: user.id }},
                 doing: { connect : { id: doingId }}
             });
