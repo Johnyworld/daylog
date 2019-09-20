@@ -1,0 +1,16 @@
+type Query {
+    seeMonthLog(username:String!, yyyymm:String!): MonthLog!
+}
+
+type MonthLog {
+    weekReviews: [Review!]!
+    weekComments: [Comment!]!
+    averageScore: Float!
+    doingLogs: [DoingLog!]!
+}
+
+type DoingLog {
+    name: String!
+    blocks: Int!
+    percent: Int! 
+}
