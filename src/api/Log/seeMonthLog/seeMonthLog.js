@@ -1,5 +1,5 @@
-import { prisma } from "../../../generated/prisma-client";
-import { getTotalBlocks, getAverageScore } from "../../utils";
+import { prisma } from "../../../../generated/prisma-client";
+import { getTotalBlocks, getAverageScore } from "../../../utils";
 
 export default {
     Query : {
