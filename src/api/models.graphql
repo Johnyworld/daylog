@@ -77,6 +77,10 @@ type Doing {
   category: Category!
   createdAt: String!
   updatedAt: String!
+  followersCount: Int!
+  postsCount: Int!
+  blocksCount: Int!
+  isFollowing: Boolean!
 }
 
 type Review {
