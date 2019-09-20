@@ -53,7 +53,8 @@ type Comment {
 type Like {
   id: ID!
   user: User!
-  post: Post!
+  post: Post
+  review: Review
   createdAt: String!
   updatedAt: String!
 }
@@ -83,6 +84,7 @@ type Review {
   text: String!
   when: String!
   user: User!
+  likes: [Like!]!
   createdAt: String!
   updatedAt: String!
 }

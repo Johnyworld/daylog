@@ -43,7 +43,8 @@ type Comment {
 type Like {
   id: ID! @id
   user: User! @relation(name: "Likes_User")
-  post: Post! @relation(name: "Likes_Post")
+  post: Post @relation(name: "Likes_Post")
+  review: Review @relation(name: "Likes_Review")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -73,6 +74,7 @@ type Review {
   text: String!
   when: String!
   user: User! @relation(name: "Review_User")
+  likes: [Like!]! @relation(name: "Likes_Review")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

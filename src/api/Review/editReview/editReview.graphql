@@ -1,0 +1,3 @@
+type Mutation {
+    editReview( id:String!, text: String!): Review!
+}
