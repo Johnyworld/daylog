@@ -1,16 +1,15 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { getYyyymmdd } from "../../../utils";
 
 export default {
     Mutation : {
         addReview: (_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
-            const { text } = args;
+            const { text, yyyymmdd } = args;
             const { user } = request;
-            const when = getYyyymmdd( new Date().getFullYear(), new Date().getMonth(), new Date().getDate() );
             if ( text !== "" ) {
                 return prisma.createReview({
-                    text, when, 
+                    text, 
+                    when: yyyymmdd,
                     user : { connect : { id : user.id } }
                 });
             } else {
