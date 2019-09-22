@@ -62,7 +62,7 @@ export const timeToBlock = ( hour, minute ) => {
 
 export const getYyyymmdd = ( year, month, date ) => {
     month += 1;
-    return [ year, (month>9?'':"0")+month, (date>9?'':"0")+date ].join('');
+    return `${year}-${(month>9?'':"0")+month}-${(date>9?'':"0")+date}`;
 }
 
 export const getTotalBlocks = (posts) => {
