@@ -3,8 +3,8 @@ type Query {
 }
 
 type MonthLog {
-    weekReviews: [Review!]!
-    weekComments: [Comment!]!
+    monthReviews: [Review!]!
+    monthComments: [Comment!]!
     averageScore: Float!
     doingLogs: [DoingLog!]!
 }

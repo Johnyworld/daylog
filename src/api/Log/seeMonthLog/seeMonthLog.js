@@ -20,17 +20,17 @@ export default {
                 }
             });
 
-            const weekReviews = await prisma.reviews({ where : { 
-                when_starts_with: yyyymm,
-                user : { username }
-            }});
-
-            const weekComments = await prisma.comments({ where : { post : {
+            const monthReviews = await prisma.reviews({ where : { 
                 yyyymmdd_starts_with: yyyymm,
                 user : { username }
-            }}});
+            }, orderBy: "yyyymmdd_DESC" });
 
-            return { weekReviews, weekComments, averageScore, doingLogs }
+            const monthComments = await prisma.comments({ where : { post : {
+                yyyymmdd_starts_with: yyyymm,
+                user : { username }
+            }}, orderBy: "createdAt_DESC" });
+
+            return { monthReviews, monthComments, averageScore, doingLogs }
         }
     }
 }
