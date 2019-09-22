@@ -98,4 +98,5 @@ type DoingLog {
     name: String!
     blocks: Int!
     percent: Int!
+    postsCount: Int!
 }
