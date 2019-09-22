@@ -1,0 +1,10 @@
+type Query {
+    seeWeekLog(username:String!, yyyymmdd:String!): WeekLog!
+}
+
+type WeekLog {
+    weekReviews: [Review!]!
+    weekComments: [Comment!]!
+    averageScore: Float!
+    doingLogs: [DoingLog!]!
+}

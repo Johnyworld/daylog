@@ -3,6 +3,7 @@ import { words } from './words';
 import nodemailer from 'nodemailer';
 import sgTransport from 'nodemailer-sendgrid-transport';
 import jwt from 'jsonwebtoken';
+import { prisma } from "../generated/prisma-client";
 
 export const showMessage = (lang, category, item) => {
     if ( lang === 'KR' ) return require("./lang/kr.json")[category][item];
@@ -79,4 +80,34 @@ export const getAverageScore = (posts) => {
         total += post.score;
     });
     return (total / hasScore).toFixed(1);
+}
+
+export const getDoingLogs = async(posts, totalBlocks) => {
+    let doingLogs = [];
+
+    for ( let i=0; i<posts.length; i++ ) {
+        const blocks = posts[i].endAt - posts[i].startAt;
+        const name = await prisma.post({ id : posts[i].id }).doing().name();
+        const postsCount = 1;
+        let contains = false;
+
+        if ( doingLogs ) {
+            for ( let j=0; j<doingLogs.length; j++ ) {
+                if ( doingLogs[j].name === name ) {
+                    doingLogs[j].blocks += blocks;
+                    doingLogs[j].postsCount += 1;
+                    contains = true;
+                    break;
+                } 
+            }
+        }
+        
+        if ( !contains ) doingLogs = [ ...doingLogs, { name, blocks, postsCount } ] 
+    }
+    
+    doingLogs.forEach((log, index) => {
+        doingLogs[index].percent = Math.round(log.blocks / totalBlocks * 100); 
+    })
+
+    return doingLogs;
 }
