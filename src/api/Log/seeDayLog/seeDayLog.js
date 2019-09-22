@@ -21,7 +21,7 @@ export default {
             })
 
             const dayReviews = await prisma.reviews({ where: {
-                when : yyyymmdd,
+                yyyymmdd,
                 user : { username }
             }})
 

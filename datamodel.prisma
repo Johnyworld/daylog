@@ -72,7 +72,7 @@ type Doing {
 type Review {
   id: ID! @id
   text: String!
-  when: String!
+  yyyymmdd: String!
   user: User! @relation(name: "Review_User")
   likes: [Like!]! @relation(name: "Likes_Review")
   createdAt: DateTime! @createdAt

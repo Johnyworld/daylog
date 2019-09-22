@@ -86,7 +86,7 @@ type Doing {
 type Review {
   id: ID!
   text: String!
-  when: String!
+  yyyymmdd: String!
   user: User!
   likes: [Like!]!
   createdAt: String!

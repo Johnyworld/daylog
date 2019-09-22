@@ -9,7 +9,7 @@ export default {
             if ( text !== "" ) {
                 return prisma.createReview({
                     text, 
-                    when: yyyymmdd,
+                    yyyymmdd,
                     user : { connect : { id : user.id } }
                 });
             } else {
