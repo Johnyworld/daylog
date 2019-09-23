@@ -32,7 +32,7 @@
 - [x] 데이터 모델 구상
 - [x] GraphQL 세팅
 - [x] 데이터 모델 구축 : GraphQL, Prisma 
-- [ ] API 구축 (95% 진행중)
+- [x] API 구축
 
 #### 프론트엔드 개발 일정
 - [ ] 웹 애플리케이션 개발 : React, Hooks
