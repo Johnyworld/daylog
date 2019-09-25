@@ -34,10 +34,10 @@ export const sendSecretMail = (address, secret, username, lang) => {
     const email = {
         from : "johnyworld@naver.com",
         to : address,
-        subject,
+        subject: `${greeting} ${username}${subject}`,
         html: `
             <span style="font-size:16px">
-                ${greeting} 
+                ${greeting}
                 <strong>${username}</strong>
                 ${html}
             </span>
@@ -47,9 +47,7 @@ export const sendSecretMail = (address, secret, username, lang) => {
                 color: white; 
                 font-size:32px; 
                 padding: 5px 10px;"
-            >
-                ${secret}
-            </strong>
+            >${secret}</strong>
         ` 
     }
     return sendMail(email);
