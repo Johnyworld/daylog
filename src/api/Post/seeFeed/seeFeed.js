@@ -6,7 +6,13 @@ export default {
             isAuthenticated(request);
             const { user } = request;
             return prisma.posts({
-                where: { user: { followers_some: { id: user.id } } }
+                where: {
+                    OR : [
+                        { user: { followers_some: { id: user.id } } },
+                        { user: { id: user.id }}
+                    ]
+                },
+                orderBy: "yyyymmdd_DESC"
             })
         }
     }
