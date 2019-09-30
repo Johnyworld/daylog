@@ -12,7 +12,12 @@ export default {
             const averageScore = getAverageScore(posts);
             const doingLogs = getDoingLogs(posts, totalBlocks);
 
-            return { averageScore, doingLogs }
+            const yearReviews = await prisma.reviews({ where : { 
+                yyyymmdd_starts_with: yyyy,
+                user : { username }
+            }, orderBy: "yyyymmdd_DESC" });
+
+            return { yearReviews, averageScore, doingLogs }
         }
     }
 }

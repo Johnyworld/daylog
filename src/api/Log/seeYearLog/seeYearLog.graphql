@@ -3,6 +3,7 @@ type Query {
 }
 
 type YearLog {
+    yearReviews: [Review!]!
     averageScore: Float!
     doingLogs: [DoingLog!]!
 }
