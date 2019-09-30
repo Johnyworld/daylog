@@ -5,7 +5,7 @@ export default {
     Mutation : {
         upload: async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
-            const { doingId, location, score } = args;
+            const { doingId, location="", score } = args;
             const { user } = request; 
             const startAt = timeToBlock( new Date().getHours(), new Date().getMinutes() );
             const yyyymmdd = getYyyymmdd( new Date().getFullYear(), new Date().getMonth(), new Date().getDate() );

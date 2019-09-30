@@ -2,15 +2,33 @@ import { prisma } from "../../../../generated/prisma-client";
 import { getTotalBlocks, getAverageScore, getYyyymmdd, getDoingLogs } from "../../../utils";
 
 const getWeeks = (yyyymmdd) => {
-    const today = yyyymmdd.split('-');
     let weeks = [];
-    for ( let i=0; i<7; i++ ) {
-        const oneDay = new Date();
-        oneDay.setFullYear( today[0], today[1]-1, today[2]-i );
-        const oneDayPrint = getYyyymmdd( oneDay.getFullYear(), oneDay.getMonth(), oneDay.getDate() );  
+
+    const thisDay = new Date(yyyymmdd);
+    const Y = thisDay.getFullYear();
+    const M = thisDay.getMonth();
+    const D = thisDay.getDate();
+
+    const whatDay = thisDay.getDay();
+    const whatFirstDay = new Date( Y, M, 1 ).getDay();
+    const whatWeek = Math.floor(( D + whatFirstDay -1 ) / 7);
+
+    for ( let i=whatDay; i>=0; i-- ) {
+        const oneDay = new Date( Y, M, D-i );
+        const oneDayPrint = getYyyymmdd( oneDay.getFullYear(), oneDay.getMonth(), oneDay.getDate() ); 
         weeks = [ ...weeks, { yyyymmdd : oneDayPrint } ];
     }
-    return weeks;
+
+    for ( let i=1; i<7-whatDay; i++ ) {
+        const oneDay = new Date( Y, M, D+i );
+        const oneDayPrint = getYyyymmdd( oneDay.getFullYear(), oneDay.getMonth(), oneDay.getDate() );   
+        weeks = [ ...weeks, { yyyymmdd : oneDayPrint } ]; 
+    }
+
+    return { 
+        array: weeks,
+        yyyymmWeek: `${Y}-${(M>9?'':"0")+(M+1)}-W${whatWeek}` 
+    };
 }
 
 export default {
@@ -19,7 +37,7 @@ export default {
             const weeks = getWeeks(yyyymmdd);
             const posts = await prisma.posts({
                 where: { 
-                    OR : weeks,
+                    OR : weeks.array,
                     user: { username } 
                 },
                 orderBy: "yyyymmdd_DESC"
@@ -30,12 +48,12 @@ export default {
             const doingLogs = getDoingLogs(posts, totalBlocks);
 
             const weekReviews = await prisma.reviews({ where : { 
-                OR : weeks,
+                yyyymmdd : weeks.yyyymmWeek,
                 user : { username }
             }, orderBy: "yyyymmdd_DESC" });
 
             const weekComments = await prisma.comments({ where : { post : {
-                OR : weeks,
+                yyyymmdd : weeks.yyyymmWeek,
                 user : { username }
             }}, orderBy: "createdAt_DESC" });
 

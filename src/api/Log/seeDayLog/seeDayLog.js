@@ -11,7 +11,7 @@ export default {
             let totalBlocks = getTotalBlocks(posts);
             const averageScore = getAverageScore(posts);
             const doingLogs = getDoingLogs(posts, totalBlocks);
-
+            
             const dayReviews = await prisma.reviews({ where: {
                 yyyymmdd,
                 user : { username }
