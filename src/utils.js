@@ -77,6 +77,7 @@ export const getAverageScore = (posts) => {
         if ( post.score ) hasScore += 1; 
         total += post.score;
     });
+    if ( !total ) return 0;
     return (total / hasScore).toFixed(1);
 }
 
@@ -107,5 +108,6 @@ export const getDoingLogs = async(posts, totalBlocks) => {
         doingLogs[index].percent = Math.round(log.blocks / totalBlocks * 100); 
     })
 
+    doingLogs.sort((a, b) => a.blocks > b.blocks ? -1 : a.blocks < b.blocks ? 1 : 0 );
     return doingLogs;
 }
