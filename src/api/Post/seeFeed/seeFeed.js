@@ -2,18 +2,28 @@ import { prisma } from "../../../../generated/prisma-client";
 
 export default {
     Query : {
-        seeFeed : (_, __, {request, isAuthenticated}) => {
+        seeFeed : async(_, __, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
-            return prisma.posts({
+            const posts = await prisma.posts({
                 where: {
                     OR : [
                         { user: { followers_some: { id: user.id } } },
                         { user: { id: user.id }}
                     ]
                 },
-                orderBy: "yyyymmdd_DESC"
+                orderBy: "createdAt_DESC"
             })
+            const reviews = await prisma.reviews({
+                where: {
+                    OR : [
+                        { user: { followers_some: { id: user.id } } },
+                        { user: { id: user.id }}
+                    ]
+                },
+                orderBy: "createdAt_DESC"
+            })
+            return { posts, reviews }
         }
     }
 }
