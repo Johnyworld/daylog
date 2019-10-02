@@ -1,10 +1,10 @@
 type Query {
-    seeMonthLog(username:String!, yyyymm:String!): MonthLog!
+    seeMonthLog(username:String!, yyyymmdd:String!): MonthLog!
 }
 
 type MonthLog {
-    monthReviews: [Review!]!
-    monthComments: [Comment!]!
+    monthReview: [Review!]!
+    eachReviews: [Review!]!
     averageScore: Float!
     doingLogs: [DoingLog!]!
 }

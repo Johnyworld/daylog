@@ -3,26 +3,26 @@ import { getTotalBlocks, getAverageScore, getDoingLogs } from "../../../utils";
 
 export default {
     Query : {
-        seeMonthLog : async(_, { username, yyyymm }) => {
+        seeMonthLog : async(_, { username, yyyymmdd }) => {
             const posts = await prisma.posts({
-                where: { yyyymmdd_starts_with: yyyymm, user: { username } }
+                where: { yyyymmdd_starts_with: yyyymmdd, user: { username } }
             });
 
             let totalBlocks = getTotalBlocks(posts);
             const averageScore = getAverageScore(posts);
             const doingLogs = getDoingLogs(posts, totalBlocks);
 
-            const monthReviews = await prisma.reviews({ where : { 
-                yyyymmdd_starts_with: yyyymm,
+            const monthReview = await prisma.reviews({ where : { 
+                yyyymmdd,
+                user : { username }
+            }});
+
+            const eachReviews = await prisma.reviews({ where : { 
+                yyyymmdd_starts_with: yyyymmdd,
                 user : { username }
             }, orderBy: "yyyymmdd_DESC" });
 
-            const monthComments = await prisma.comments({ where : { post : {
-                yyyymmdd_starts_with: yyyymm,
-                user : { username }
-            }}, orderBy: "createdAt_DESC" });
-
-            return { monthReviews, monthComments, averageScore, doingLogs }
+            return { monthReview, eachReviews, averageScore, doingLogs }
         }
     }
 }

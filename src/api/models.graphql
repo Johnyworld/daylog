@@ -91,6 +91,7 @@ type Review {
   likes: [Like!]!
   createdAt: String!
   updatedAt: String!
+  isLiked: Boolean!
   likesCount: Int!
 }
 
