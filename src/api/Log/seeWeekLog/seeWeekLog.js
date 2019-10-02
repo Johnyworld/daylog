@@ -26,8 +26,8 @@ const getWeeks = (yyyymmdd) => {
     }
 
     return { 
-        array: weeks,
-        yyyymmWeek: `${Y}-${(M>9?'':"0")+(M+1)}-W${whatWeek}` 
+        array: weeks.reverse(),
+        yyyymmWeek: `${Y}-${(M>9?'':"0")+(M+1)}-W${whatWeek}`,
     };
 }
 
@@ -52,12 +52,7 @@ export default {
                 user : { username }
             }, orderBy: "yyyymmdd_DESC" });
 
-            const weekComments = await prisma.comments({ where : { post : {
-                yyyymmdd : weeks.yyyymmWeek,
-                user : { username }
-            }}, orderBy: "createdAt_DESC" });
-
-            return { weekReviews, weekComments, averageScore, doingLogs }
+            return { weekReviews, averageScore, doingLogs, eachDays:weeks.array }
         }
     }
 }

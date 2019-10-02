@@ -4,7 +4,12 @@ type Query {
 
 type WeekLog {
     weekReviews: [Review!]!
-    weekComments: [Comment!]!
     averageScore: Float!
     doingLogs: [DoingLog!]!
+    posts: [Post!]!
+    eachDays: [Date!]!
+}
+
+type Date {
+    yyyymmdd: String!
 }
