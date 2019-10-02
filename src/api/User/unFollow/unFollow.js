@@ -7,11 +7,15 @@ export default {
             const { id } = args;
             const { user } = request;
             try {
-                await prisma.updateUser({
-                    where: { id: user.id },
-                    data: { following: { disconnect : { id } } }
-                });
-                return true;
+                if ( id === user.id ) {
+                    throw Error("Can't unfollow your self");
+                } else {
+                    await prisma.updateUser({
+                        where: { id: user.id },
+                        data: { following: { disconnect : { id } } }
+                    });
+                    return true;
+                }
             } catch {
                 return false;
             }

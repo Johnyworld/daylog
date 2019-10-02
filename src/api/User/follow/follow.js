@@ -7,11 +7,15 @@ export default {
             const { id } = args;
             const { user } = request;
             try {
-                await prisma.updateUser({ 
-                    where: { id: user.id },
-                    data: { following: { connect: { id } } }
-                });
-                return true;
+                if ( user.id === id ) {
+                    throw Error("Can't follow your self");
+                } else {
+                    await prisma.updateUser({ 
+                        where: { id: user.id },
+                        data: { following: { connect: { id } } }
+                    });
+                    return true;
+                }
             } catch {
                 return false;
             }
