@@ -3,21 +3,21 @@ import { getTotalBlocks, getAverageScore, getDoingLogs } from "../../../utils";
 
 export default {
     Query : {
-        seeYearLog : async(_, { username, yyyy }) => {
+        seeYearLog : async(_, { username, yyyymmdd }) => {
             const posts = await prisma.posts({
-                where: { yyyymmdd_starts_with: yyyy, user: { username } }
+                where: { yyyymmdd_starts_with: yyyymmdd, user: { username } }
             });
 
             let totalBlocks = getTotalBlocks(posts);
             const averageScore = getAverageScore(posts);
             const doingLogs = getDoingLogs(posts, totalBlocks);
 
-            const yearReviews = await prisma.reviews({ where : { 
-                yyyymmdd_starts_with: yyyy,
+            const yearReview = await prisma.reviews({ where : { 
+                yyyymmdd: yyyymmdd,
                 user : { username }
-            }, orderBy: "yyyymmdd_DESC" });
+            }});
 
-            return { yearReviews, averageScore, doingLogs }
+            return { yearReview, averageScore, doingLogs }
         }
     }
 }
