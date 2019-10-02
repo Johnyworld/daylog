@@ -3,6 +3,7 @@ type Mutation {
         username:String!, 
         email:String!, 
         fullname:String!,
-        bio:String
+        bio:String,
+        lang:String!
     ): Boolean!
 }
