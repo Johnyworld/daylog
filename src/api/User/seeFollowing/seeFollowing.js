@@ -3,9 +3,9 @@ import { prisma } from "../../../../generated/prisma-client";
 export default {
     Query : {
         seeFollowing : (_, args) => {
-            const { id } = args;
+            const { username } = args;
             return prisma.users({
-                where: { followers_some: { id } }
+                where: { followers_some: { username } }
             })
         }
     }
