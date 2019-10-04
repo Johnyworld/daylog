@@ -3,7 +3,7 @@ import { prisma } from "../../../../generated/prisma-client";
 export default {
     Mutation : {
         createAccount : async(_, args) => {
-            const { username, email, fullname="", bio="", lang } = args;
+            const { username, email, fullname="", bio="", avatar="", lang } = args;
 
             const regUsername = /^[a-z0-9_-]{3,16}$/; 
             const regFullname = /^[^0-9\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]{2,18}$/;
@@ -18,7 +18,7 @@ export default {
                 throw Error("This username or email is already taken.")
             }
 
-            await prisma.createUser({ username, email, fullname, bio, lang });
+            await prisma.createUser({ username, email, fullname, bio, lang, avatar });
             return true;
         }
     }

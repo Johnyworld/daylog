@@ -9,7 +9,7 @@ export default {
 
             if ( id === user.id ) {
                 await prisma.updateUser({ where: { id }, data: {
-                    avatar: null
+                    avatar: ""
                 }})
                 return true;
             } else {
