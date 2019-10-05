@@ -4,7 +4,14 @@ export default {
     Query : {
         searchUser : async(_, args) => {
             const { term } = args;
-            return await prisma.users({ where: { username_contains: term }});
+            return await prisma.users({ 
+                where: {
+                    OR : [
+                        { username_contains: term },
+                        { fullname_contains: term }
+                    ]
+                }
+            });
         }
     }
 }
