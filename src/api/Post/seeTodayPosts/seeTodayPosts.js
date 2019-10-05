@@ -6,11 +6,26 @@ export default {
         seeTodayPosts : (_, __, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user : { username } } = request;
-            const yyyymmdd = getYyyymmdd( new Date().getFullYear(), new Date().getMonth(), new Date().getDate() );
+
+            const today = new Date();
+            const yesterday = new Date();
+            yesterday.setDate( yesterday.getDate() -1 );
+
+            const yyyymmdd = getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate() );
+            const yyyymmddYesterday = getYyyymmdd( yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate() );
+            
             return prisma.posts({
                 where : {
-                    user: { username },
-                    yyyymmdd
+                    OR : [
+                        {
+                            user: { username },
+                            yyyymmdd
+                        },
+                        {
+                            user: { username },
+                            yyyymmdd : yyyymmddYesterday
+                        }
+                    ]
                 }
             })
         }
