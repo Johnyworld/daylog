@@ -6,8 +6,8 @@ import jwt from 'jsonwebtoken';
 import { prisma } from "../generated/prisma-client";
 
 export const showMessage = (lang, category, item) => {
-    if ( lang === 'KR' ) return require("./lang/kr.json")[category][item];
-    if ( lang === 'EN' ) return require("./lang/en.json")[category][item];
+    if ( lang === 'kr' ) return require("./lang/kr.json")[category][item];
+    if ( lang === 'en' ) return require("./lang/en.json")[category][item];
 }
 
 export const generateSecret = () => {
