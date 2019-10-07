@@ -62,7 +62,15 @@ type Like {
 type Category {
   id: ID!
   name: String!
+  lang: Lang!
   doings: [Doing!]!
+}
+
+type Lang {
+  id: ID!
+  category: Category!
+  kr: String!
+  en: String!
 }
 
 type Doing {

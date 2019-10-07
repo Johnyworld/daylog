@@ -52,7 +52,15 @@ type Like {
 type Category {
   id: ID! @id
   name: String!
+  lang: Lang! @relation(name: "Lang_Category", link: INLINE)
   doings: [Doing!]! @relation(name: "Doings_Category")
+}
+
+type Lang {
+  id: ID! @id
+  category: Category! @relation(name: "Lang_Category")
+  kr: String!
+  en: String!
 }
 
 type Doing {
