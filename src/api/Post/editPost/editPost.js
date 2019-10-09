@@ -12,8 +12,9 @@ export default {
                     case "score" : return prisma.updatePost({ where: { id }, data: { score } });
                     case "location" : return prisma.updatePost({ where: { id }, data: { location }});
                     case "startAt" : return prisma.updatePost({ where: { id }, data: { startAt }});
-                    case "endAt" : return prisma.updatePost({ where: { id }, data: { endAt }}); 
+                    case "endAt" : return prisma.updatePost({ where: { id }, data: { endAt, location: location && location }}); 
                     case "doing" : return prisma.updatePost({ where: { id }, data: { doing : { connect : { id : doingId }}}}); 
+                    case "delete" : return prisma.deletePost({ id });
                 }
             } else {
                 throw Error("It is not your post.")
