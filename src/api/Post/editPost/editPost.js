@@ -1,4 +1,5 @@
 import { prisma } from "../../../../generated/prisma-client";
+import { getYyyymmdd } from "../../../utils";
 
 export default {
     Mutation : {
@@ -11,10 +12,14 @@ export default {
                 switch(type) {
                     case "score" : return prisma.updatePost({ where: { id }, data: { score } });
                     case "location" : return prisma.updatePost({ where: { id }, data: { location }});
-                    case "startAt" : return prisma.updatePost({ where: { id }, data: { startAt }});
+                    case "startAt" : return prisma.updatePost({ where: { id }, data: { startAt, location: location && location }});
                     case "endAt" : return prisma.updatePost({ where: { id }, data: { endAt, location: location && location }}); 
                     case "doing" : return prisma.updatePost({ where: { id }, data: { doing : { connect : { id : doingId }}}}); 
                     case "delete" : return prisma.deletePost({ id });
+                    case "stEnYymd" : return prisma.updatePost({ where: { id }, data: { startAt, endAt }}); 
+                    case "stEnYymd_YesterToToday" :
+                        const yyyymmdd = getYyyymmdd( new Date().getFullYear(), new Date().getMonth(), new Date().getDate() );
+                        return prisma.updatePost({ where: { id }, data: { startAt, endAt, yyyymmdd }}); 
                 }
             } else {
                 throw Error("It is not your post.")

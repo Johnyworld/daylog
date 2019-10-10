@@ -5,14 +5,12 @@ export default {
     Mutation : {
         upload: async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
-            const { doingId, location="", startAt, score } = args;
+            const { doingId, location="", startAt, score, option } = args;
             const { user } = request;
 
-            // const startAt = timeToBlock( new Date().getHours(), new Date().getMinutes() );
             const yyyymmdd = getYyyymmdd( new Date().getFullYear(), new Date().getMonth(), new Date().getDate() );
             const yesterday = getYyyymmdd( new Date().getFullYear(), new Date().getMonth(), new Date().getDate()-1 );
             
-           console.log(startAt);
             const postExists = await prisma.$exists.post({
                 OR : [
                     {
@@ -28,8 +26,11 @@ export default {
 
             if ( !postExists ) {
                 const post = await prisma.createPost({ 
-                    location, score, yyyymmdd,
-                    startAt, endAt: startAt+1,
+                    location, 
+                    score, 
+                    startAt, 
+                    endAt: startAt+1,
+                    yyyymmdd: option === "yesterday" ? yesterday : yyyymmdd,
                     user: { connect : { id: user.id }},
                     doing: { connect : { id: doingId }}
                 });
