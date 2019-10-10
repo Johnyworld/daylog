@@ -13,10 +13,11 @@ export default {
             });
         },
 
-        seeFollowedDoings: (_, args) => {
-            const { username } = args;
+        seeFollowedDoings: (_, __, {request, isAuthenticated}) => {
+            isAuthenticated(request);
+            const { user } = request;
             return prisma.doings({
-                where: { followers_some: { username } }
+                where: { pins_some: { user : { id: user.id }}}
             })
         }
     }

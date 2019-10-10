@@ -9,10 +9,12 @@ export default {
             const doing = await prisma.createDoing({ 
                 name, color, icon, 
                 category: { connect: { id: categoryId }},
-                followers: { connect: { id: user.id }},
-                author: user.username,
-                authorId: user.id
+                author: { connect: { id: user.id }},
             });
+            await prisma.createPin({
+                user: { connect: { id: user.id }},
+                doing: { connect: { id: doing.id }}
+            })
             return doing;
         }
     }
