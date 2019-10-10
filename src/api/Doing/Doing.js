@@ -2,12 +2,13 @@ import { prisma } from "../../../generated/prisma-client";
 
 export default {
     Doing : {
+        author: ({ id }) => prisma.doing({ id }).author(),
         category: ({ id }) => prisma.doing({ id }).category(),
-        followers: ({ id }) => prisma.doing({ id }).followers(),
+        pins: ({ id }) => prisma.doing({ id }).pins(),
         posts: ({ id }) => prisma.doing({ id }).posts(),
 
-        followersCount: ({ id }) => prisma.usersConnection({
-            where: { doings_some: { id } }
+        pinsCount: ({ id }) => prisma.pinsConnection({
+            where: { doing: { id }}
         }).aggregate().count(),
 
         postsCount: ({ id }) => prisma.postsConnection({

@@ -11,6 +11,7 @@ type User {
   posts: [Post!]!
   likes: [Like!]!
   doings: [Doing!]!
+  pins: [Pin!]!
   comments: [Comment!]!
   reviews: [Review!]!
   loginSecret: String
@@ -78,17 +79,24 @@ type Doing {
   name: String!
   color: String!
   icon: String!
-  author: String!
-  authorId: String!
   posts: [Post!]!
-  followers: [User!]!
+  author: User!
+  pins: [Pin!]!
   category: Category!
   createdAt: String!
   updatedAt: String!
-  followersCount: Int!
+  pinsCount: Int!
   postsCount: Int!
   blocksCount: Int!
   isFollowing: Boolean!
+}
+
+type Pin {
+  id: ID!
+  user: User!
+  doing: Doing
+  createdAt: String!
+  updatedAt: String!
 }
 
 type Review {

@@ -11,6 +11,7 @@ type User {
   posts: [Post!]! @relation(name: "Posts_User")
   likes: [Like!]! @relation(name: "Likes_User")
   doings: [Doing!]! @relation(name: "Doings_User")
+  pins: [Pin!]! @relation(name: "Pins_User")
   comments: [Comment!]! @relation(name: "Comments_User")
   reviews: [Review!]! @relation(name: "Review_User")
   loginSecret: String
@@ -68,11 +69,18 @@ type Doing {
   name: String!
   color: String!
   icon: String!
-  author: String! 
-  authorId: String!
+  author: User! @relation(name: "Doings_User")
+  pins: [Pin!]! @relation(name: "Pins_Doing")
   posts: [Post!]! @relation(name: "Posts_Doing")
-  followers: [User!]! @relation(name: "Doings_User")
   category: Category! @relation(name: "Doings_Category")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Pin {
+  id: ID! @id
+  user: User! @relation(name: "Pins_User")
+  doing: Doing @relation(name: "Pins_Doing")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
