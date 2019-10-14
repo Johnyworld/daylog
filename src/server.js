@@ -28,6 +28,7 @@ const s3 = new aws.S3({
     region: "ap-northeast-2"
 })
 
+// 프로필 업로드
 const upload = multer({
     storage: s3Storage({
         s3,
@@ -51,4 +52,24 @@ server.express.post('/upload', upload.single('avatar'), async(req, res) => {
     } catch {
         console.log("❌Fail to update user by prisma");
     }
+});
+
+// 아이콘 업로드
+const iconUpload = multer({
+    storage: s3Storage({
+        s3,
+        Bucket: "daylog/icon",
+        ACL: "public-read",
+        resize: {
+            width: 48,
+            height: 48
+        },
+        max: true
+    }),
+    limits: { fileSize: 1000000 }
+}); 
+
+server.express.post('/upload-icon', iconUpload.single('iconFile'), async(req, res) => {
+    const file = req.file;
+    return res.json(file);
 });
