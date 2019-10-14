@@ -17,12 +17,7 @@ export default {
                 user : { username }
             }})
 
-            const dayComments = await prisma.comments({ where: { post : {
-                yyyymmdd,
-                user : { username }
-            }}});
-
-            return { dayReviews, dayComments, averageScore, doingLogs, posts } 
+            return { dayReviews, averageScore, doingLogs, posts } 
         }
     }
 }
