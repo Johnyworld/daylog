@@ -1,5 +1,5 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { timeToBlock, getYyyymmdd } from "../../../utils";
+import { getToday, getYesterday } from "../../../utils";
 
 export default {
     Mutation : {
@@ -8,9 +8,9 @@ export default {
             const { doingId, location="", startAt, score, option } = args;
             const { user } = request;
 
-            const yyyymmdd = getYyyymmdd( new Date().getFullYear(), new Date().getMonth(), new Date().getDate() );
-            const yesterday = getYyyymmdd( new Date().getFullYear(), new Date().getMonth(), new Date().getDate()-1 );
-            
+            const yyyymmdd = getToday();
+            const yesterday = getYesterday();
+
             const postExists = await prisma.$exists.post({
                 OR : [
                     {

@@ -64,6 +64,16 @@ export const getYyyymmdd = ( year, month, date ) => {
     return `${year}-${(month>9?'':"0")+month}-${(date>9?'':"0")+date}`;
 }
 
+export const getToday = () => {
+    const today = new Date();
+    return getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate() );
+}
+
+export const getYesterday = () => {
+    const today = new Date();
+    return getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate()-1 ); 
+}
+
 export const getTotalBlocks = (posts) => {
     let total = 0;
     posts.map(post => total += post.endAt - post.startAt);
