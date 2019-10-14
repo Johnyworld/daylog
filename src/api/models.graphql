@@ -88,7 +88,7 @@ type Doing {
   pinsCount: Int!
   postsCount: Int!
   blocksCount: Int!
-  isFollowing: Boolean!
+  isPinned: Boolean!
 }
 
 type Pin {

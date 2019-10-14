@@ -32,7 +32,7 @@ export default {
             return total;
         },
 
-        isFollowing: ({ id }, _, {request, isAuthenticated}) => {
+        isPinned: ({ id }, _, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { user } = request;
             return prisma.$exists.user({

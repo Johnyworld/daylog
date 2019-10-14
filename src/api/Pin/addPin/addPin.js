@@ -5,6 +5,7 @@ export default {
         addPin : async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
             const { doingId } = args;
+            console.log(doingId)
             const { user } = request;
             try {
                 await prisma.createPin({
