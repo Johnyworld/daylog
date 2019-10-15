@@ -69,9 +69,10 @@ export const getToday = () => {
     return getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate() );
 }
 
-export const getYesterday = () => {
-    const today = new Date();
-    return getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate()-1 ); 
+export const getYesterday = (yyyymmdd) => {
+    const today = new Date( yyyymmdd && yyyymmdd );
+    today.setDate( today.getDate() -1 );
+    return getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate() ); 
 }
 
 export const getTotalBlocks = (posts) => {
