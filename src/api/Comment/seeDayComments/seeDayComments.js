@@ -8,7 +8,7 @@ export default {
             const { user } = request;
 
             const yyyymmdd = getToday();
-            const yesterday = getYesterday();
+            const yesterday = getYesterday(yyyymmdd);
 
             return prisma.comments({ 
                 where: {

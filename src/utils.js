@@ -70,7 +70,7 @@ export const getToday = () => {
 }
 
 export const getYesterday = (yyyymmdd) => {
-    const today = new Date( yyyymmdd && yyyymmdd );
+    const today = new Date( yyyymmdd );
     today.setDate( today.getDate() -1 );
     return getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate() ); 
 }
