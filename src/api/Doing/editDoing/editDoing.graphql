@@ -1,0 +1,3 @@
+type Mutation {
+    editDoing(id:String!, color:String, icon:String): Boolean!
+}
