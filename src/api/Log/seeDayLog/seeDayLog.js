@@ -1,12 +1,19 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { getTotalBlocks, getAverageScore, getDoingLogs } from "../../../utils";
+import { getTotalBlocks, getAverageScore, getDoingLogs, getYesterday } from "../../../utils";
 
 export default {
     Query : {
         seeDayLog: async(_, { username, yyyymmdd }) => {
             const posts = await prisma.posts({
-                where: { yyyymmdd, user: { username } }
+                where: { yyyymmdd, user: { username } },
+                orderBy: "startAt_ASC"
             });
+
+            const yesterday = getYesterday(yyyymmdd);
+            const yesterdayLastPost = await prisma.posts({
+                where: { yyyymmdd: yesterday, user: { username } },
+                last: 1
+            })
 
             let totalBlocks = getTotalBlocks(posts);
             const averageScore = getAverageScore(posts);
@@ -17,7 +24,7 @@ export default {
                 user : { username }
             }})
 
-            return { dayReviews, averageScore, doingLogs, posts } 
+            return { dayReviews, averageScore, doingLogs, posts: [ ...yesterdayLastPost, ...posts ] } 
         }
     }
 }
