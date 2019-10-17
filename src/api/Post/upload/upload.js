@@ -9,13 +9,21 @@ export default {
             const { user } = request;
 
             const yyyymmdd = getToday();
-            const yesterday = getYesterday();
+            const yesterday = getYesterday(yyyymmdd);
 
             const postExists = await prisma.$exists.post({
                 OR : [
                     {
-                        yyyymmdd, 
+                        yyyymmdd,
+                        startAt
+                    },
+                    {
+                        yyyymmdd,
                         endAt : startAt + 1
+                    },
+                    {
+                        yyyymmdd: yesterday,
+                        startAt : startAt + 96
                     },
                     {
                         yyyymmdd: yesterday,
