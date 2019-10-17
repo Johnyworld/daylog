@@ -4,7 +4,9 @@ export default {
     Post : {
         user: ({ id }) => prisma.post({ id }).user(),
         doing: ({ id }) => prisma.post({ id }).doing(),
-        comments: ({ id }) => prisma.post({ id }).comments(),
+        comments: ({ id }) => prisma.post({ id }, { 
+            orderBy: "yyyymmdd_DESC",
+        }).comments(),
 
         likesCount: ({ id }) => prisma.likesConnection({
             where: { post: { id }}
