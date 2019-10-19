@@ -63,3 +63,4 @@ typings/
 # Prisma
 generated
 prisma.yml
+build

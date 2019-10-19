@@ -11,9 +11,11 @@
     "@babel/core": "^7.6.0",
     "@babel/node": "^7.6.1",
     "@babel/preset-env": "^7.6.0",
+    "@babel/runtime": "^7.6.3",
     "aws-sdk": "^2.541.0",
     "axios": "^0.19.0",
     "cloudinary": "^1.15.0",
+    "copy": "^0.3.2",
     "dotenv": "^8.1.0",
     "graphql-tools": "^4.0.5",
     "graphql-yoga": "^1.18.3",
@@ -30,12 +32,16 @@
     "sharp": "^0.23.1"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "nodemon": "^1.19.2"
   },
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js",
     "deploy": "prisma deploy",
     "generate": "prisma generate",
-    "prisma": "yarn run deploy && yarn run generate"
+    "prisma": "yarn run deploy && yarn run generate",
+    "build": "babel src -d build",
+    "postbuild": "cd src && copy ./api/**/*.graphql ../build/api",
+    "start": "node build/server.js"
   }
 }
