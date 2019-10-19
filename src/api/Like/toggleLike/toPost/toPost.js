@@ -22,7 +22,7 @@ export default {
                     return true;
                 } else {
                     await prisma.deleteManyLikes(filterOption);
-                    return true;
+                    return false;
                 }
             } catch {
                 return false;
