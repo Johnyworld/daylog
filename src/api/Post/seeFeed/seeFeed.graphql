@@ -1,8 +1,10 @@
 type Query {
-    seeFeed: Feed!
+    seeFeedPost(limit:Int, offset:Int): [Post!]!
+    seeFeedReview(limit:Int, offset:Int): [Review!]!
+    # seeFeed(limit:Int, offset:Int): Feed!
 }
 
-type Feed {
-    posts: [Post!]!
-    reviews: [Review!]!
-}
+# type Feed {
+#     posts: [Post!]!
+#     reviews: [Review!]!
+# }
