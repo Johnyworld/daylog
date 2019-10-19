@@ -17,14 +17,25 @@ export const generateSecret = () => {
     return secretText;
 }
 
+process.env.NODE_ENV = (
+    process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() === 'production' ) 
+        ? 'production' 
+        : 'development';
+
 const sendMail = email => {
-    if (process.env.SENDGRID_API_KEY) sg.mail(process.env.SENDGRID_API_KEY);
-    const options = {
-        auth: {
+    let auth;
+    console.log(process.env.NODE_ENV)
+    if ( process.env.NODE_ENV === 'production' ) {
+        auth = {
+            api_key: process.env.SENDGRID_API_KEY
+        }
+    } else {
+        auth = {
             api_user: process.env.SENDGRID_USERNAME,
             api_key: process.env.SENDGRID_PASSWORD 
         }
     }
+    const options = { auth }
     const client = nodemailer.createTransport( sgTransport(options) );
     return client.sendMail(email);
 }
