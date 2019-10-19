@@ -2,6 +2,7 @@ import "./env";
 import { words } from './words';
 import nodemailer from 'nodemailer';
 import sgTransport from 'nodemailer-sendgrid-transport';
+import sg from 'sendgrid';
 import jwt from 'jsonwebtoken';
 import { prisma } from "../generated/prisma-client";
 
@@ -17,6 +18,7 @@ export const generateSecret = () => {
 }
 
 const sendMail = email => {
+    if (process.env.SENDGRID_API_KEY) sg.mail(process.env.SENDGRID_API_KEY);
     const options = {
         auth: {
             api_user: process.env.SENDGRID_USERNAME,
