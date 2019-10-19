@@ -34,6 +34,8 @@ const sendMail = email => {
 }
 
 export const sendSecretMail = (address, secret, username, lang) => {
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const subject = showMessage(lang, 'sendSecret', 'subject');
     const greeting = showMessage(lang, 'sendSecret', 'greeting'); 
     const html = showMessage(lang, 'sendSecret', 'html');
@@ -56,7 +58,8 @@ export const sendSecretMail = (address, secret, username, lang) => {
             >${secret}</strong>
         ` 
     }
-    return sendMail(email);
+    sgMail.send(email);
+    // return sendMail(email);
 }
 
 export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET);
