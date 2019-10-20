@@ -3,47 +3,19 @@ import { words } from './words';
 import jwt from 'jsonwebtoken';
 import { prisma } from "../generated/prisma-client";
 
-export const showMessage = (lang, category, item) => {
-    if ( lang === 'kr' ) return require("./lang/kr.json")[category][item];
-    if ( lang === 'en' ) return require("./lang/en.json")[category][item];
-}
-
 export const generateSecret = () => {
     let secretText = "";
     for ( let i=0; i<5; i++ ) secretText += words[Math.floor( Math.random() * words.length )];
     return secretText;
 }
 
-export const sendSecretMail = (address, secret, username, lang) => {
+export const sendSecretMail = ({ to, subject, html }) => {
     const sendmail = require('sendmail')();
-
-    const subject = showMessage(lang, 'sendSecret', 'subject');
-    const greeting = showMessage(lang, 'sendSecret', 'greeting'); 
-    const sir = showMessage(lang, 'sendSecret', 'sir');
-    const mailContent = showMessage(lang, 'sendSecret', 'mailContent');
-    
-    const greetingsHtml = `
-        <span style="font-size:16px">
-            ${greeting} <strong>${username}</strong>${sir}
-            <br/>
-            ${mailContent}
-        </span><br/><br/>
-    `;
-
-    const secretHtml = `
-        <strong style="
-            background-color:#1a9df9; 
-            color: white; 
-            font-size:32px; 
-            padding: 5px 10px;"
-        >${secret}</strong>
-    `;
-
     sendmail({
         from: 'no-reply@daylog.com',
-        to: address,
-        subject: greeting + " " + username + subject,
-        html: greetingsHtml + secretHtml
+        to,
+        subject,
+        html
       }, function(err, reply) {
         console.log(err && err.stack);
         console.dir(reply);
