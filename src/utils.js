@@ -1,8 +1,5 @@
 import "./env";
 import { words } from './words';
-import nodemailer from 'nodemailer';
-import sgTransport from 'nodemailer-sendgrid-transport';
-import sg from 'sendgrid';
 import jwt from 'jsonwebtoken';
 import { prisma } from "../generated/prisma-client";
 
@@ -17,49 +14,43 @@ export const generateSecret = () => {
     return secretText;
 }
 
-// process.env.NODE_ENV = (
-//     process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() === 'production' ) 
-//         ? 'production' 
-//         : 'development';
-
-const sendMail = email => {
-    const options = { 
-        auth : {
-            api_key: process.env.SENDGRID_API_KEY
-        }
-    }
-    console.log(options)
-    const client = nodemailer.createTransport( sgTransport(options) );
-    return client.sendMail(email);
-}
-
 export const sendSecretMail = (address, secret, username, lang) => {
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const sendmail = require('sendmail')();
+
     const subject = showMessage(lang, 'sendSecret', 'subject');
     const greeting = showMessage(lang, 'sendSecret', 'greeting'); 
-    const html = showMessage(lang, 'sendSecret', 'html');
-    const email = {
-        from : "johnyworld@naver.com",
-        to : address,
+    const sir = showMessage(lang, 'sendSecret', 'sir');
+    const mailContent = showMessage(lang, 'sendSecret', 'mailContent');
+    
+    const greetingsHtml = `
+        <span style="font-size:16px">
+            ${greeting} <strong>${username}</strong>${sir}
+            <br/>
+            ${mailContent}
+        </span><br/><br/>
+    `;
+
+    const secretHtml = `
+        <strong style="
+            background-color:#1a9df9; 
+            color: white; 
+            font-size:32px; 
+            padding: 5px 10px;"
+        >${secret}</strong>
+    `;
+
+    sendmail({
+        from: 'no-reply@daylog.com',
+        to: address,
         subject: `${greeting} ${username}${subject}`,
         html: `
-            <span style="font-size:16px">
-                ${greeting}
-                <strong>${username}</strong>
-                ${html}
-            </span>
-            <br/><br/>
-            <strong style="
-                background-color:#1a9df9; 
-                color: white; 
-                font-size:32px; 
-                padding: 5px 10px;"
-            >${secret}</strong>
-        ` 
-    }
-    sgMail.send(email);
-    // return sendMail(email);
+            ${greetingsHtml} 
+            ${secretHtml}
+        ` ,
+      }, function(err, reply) {
+        console.log(err && err.stack);
+        console.dir(reply);
+    });
 }
 
 export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET);

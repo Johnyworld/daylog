@@ -10,7 +10,7 @@ export default {
                 const user = await prisma.user({ email });
                 const { username, lang } = user;
                 await prisma.updateUser({ where: { email }, data: { loginSecret }});
-                await sendSecretMail(email, loginSecret, username, lang);
+                sendSecretMail(email, loginSecret, username, lang);
                 return true;
             } catch {
                 return false;
