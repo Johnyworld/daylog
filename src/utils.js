@@ -42,11 +42,8 @@ export const sendSecretMail = (address, secret, username, lang) => {
     sendmail({
         from: 'no-reply@daylog.com',
         to: address,
-        subject: `${greeting} ${username}${subject}`,
-        html: `
-            ${greetingsHtml} 
-            ${secretHtml}
-        ` ,
+        subject: greeting + " " + username + subject,
+        html: greetingsHtml + secretHtml
       }, function(err, reply) {
         console.log(err && err.stack);
         console.dir(reply);
