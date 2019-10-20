@@ -2,6 +2,7 @@
     "sendSecret": {
         "subject" : ". Login secret for Daylog. 🔒",
         "greeting" : "Dear",
-        "html" : ".<br/>Copy and paste your login secret!<br/>Your login secret is..."
+        "sir" : ".",
+        "mailContent" : "Copy and paste your login secret!<br/>Your login secret is..."
     }
 }
