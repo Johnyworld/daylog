@@ -4,17 +4,16 @@ export default {
     Mutation : {
         removePin : async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
-            const { pinId } = args;
+            const { doingId } = args;
             const { user } = request;
-            const pin = await prisma.pin({ id });
-            
             try {
-                if ( pin.user.id === user.id ) {
-                    await prisma.deletePin({ id });
-                    return true;
-                } else {
-                    return false;
-                }
+                await prisma.deleteManyPins({
+                    AND : [
+                        { user : { id: user.id }},
+                        { doing : { id: doingId }}
+                    ]
+                });
+                return true;
             } catch {
                 return false;
             }
