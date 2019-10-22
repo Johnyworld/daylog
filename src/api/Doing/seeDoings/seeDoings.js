@@ -17,7 +17,8 @@ export default {
             isAuthenticated(request);
             const { user } = request;
             return prisma.doings({
-                where: { pins_some: { user : { id: user.id }}}
+                where: { pins_some: { user : { id: user.id }}},
+                orderBy: "name_ASC"
             })
         }
     }
