@@ -7,6 +7,7 @@ export default {
         posts: ({ id }) => prisma.user({ id }).posts(),
         likes: ({ id }) => prisma.user({ id }).likes(),
         doings: ({ id }) => prisma.user({ id }).doings(),
+        pins: ({ id }) => prisma.user({ id }).pins(),
         comments: ({ id }) => prisma.user({ id }).comments(),
         reviews: ({ id }) => prisma.user({ id }).reviews(),
 
