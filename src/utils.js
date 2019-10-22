@@ -1,5 +1,7 @@
 import "./env";
 import { words } from './words';
+import nodemailer from 'nodemailer';
+import sgTransport from 'nodemailer-sendgrid-transport';
 import jwt from 'jsonwebtoken';
 import { prisma } from "../generated/prisma-client";
 
@@ -9,17 +11,25 @@ export const generateSecret = () => {
     return secretText;
 }
 
+const sendMail = (email) => {
+    const options = {
+        auth: {
+            api_user: process.env.SENDGRID_USERNAME,
+            api_key: process.env.SENDGRID_PASSWORD
+        }
+    }
+    const client = nodemailer.createTransport(sgTransport(options));
+    return client.sendMail(email);
+}
+
 export const sendSecretMail = ({ to, subject, html }) => {
-    const sendmail = require('sendmail')();
-    sendmail({
-        from: 'no-reply@daylog.com',
+    const email = {
+        from: "no-reply@daylog.com",
         to,
         subject,
         html
-      }, function(err, reply) {
-        console.log(err && err.stack);
-        console.dir(reply);
-    });
+    }
+    return sendMail(email);
 }
 
 export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET);

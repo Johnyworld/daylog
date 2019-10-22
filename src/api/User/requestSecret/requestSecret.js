@@ -21,11 +21,23 @@ const getWords = ({ lang }) => {
 
 const getHtml = ({ username, loginSecret, words }) => {
     return `
-        <span style="font-size:16px">
+        <img src="https://daylog.s3.ap-northeast-2.amazonaws.com/logo_pos.png"
+            width="164"
+            height="40"
+            style="
+                display: block;
+                margin: 15px 0;
+            "
+        >
+        <p style="
+            font-size:16px;
+            padding-top: 15px;
+            border-top: 1px solid #edf1f5;
+        ">
             ${words.greeting} <strong>${username}</strong>${words.sir}
             <br/>
             ${words.mailContent}
-        </span><br/><br/>
+        </p><br/>
         <strong style="
             background-color:#1a9df9; 
             color: white; 
