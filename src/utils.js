@@ -48,7 +48,7 @@ export const getToday = () => {
     return getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate() );
 }
 
-export const getYesterday = (yyyymmdd) => {
+export const getYesterday = (yyyymmdd = getToday()) => {
     const today = new Date( yyyymmdd );
     today.setDate( today.getDate() -1 );
     return getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate() ); 
