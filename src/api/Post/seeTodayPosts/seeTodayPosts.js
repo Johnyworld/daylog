@@ -1,5 +1,5 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { getYyyymmdd } from "../../../utils";
+import { getToday, getYesterday } from "../../../utils";
 
 export default {
     Query : {
@@ -7,12 +7,8 @@ export default {
             isAuthenticated(request);
             const { user : { username } } = request;
 
-            const today = new Date();
-            const yesterday = new Date();
-            yesterday.setDate( yesterday.getDate() -1 );
-
-            const yyyymmdd = getYyyymmdd( today.getFullYear(), today.getMonth(), today.getDate() );
-            const yyyymmddYesterday = getYyyymmdd( yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate() );
+            const yyyymmdd = getToday();
+            const yesterday = getYesterday();
             
             return prisma.posts({
                 where : {
@@ -23,7 +19,7 @@ export default {
                         },
                         {
                             user: { username },
-                            yyyymmdd : yyyymmddYesterday
+                            yyyymmdd : yesterday
                         }
                     ]
                 }
