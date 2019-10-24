@@ -14,18 +14,22 @@ export default {
             const postExists = await prisma.$exists.post({
                 OR : [
                     {
+                        user : { id: user.id },
                         yyyymmdd,
                         startAt
                     },
                     {
+                        user : { id: user.id },
                         yyyymmdd,
                         endAt : startAt + 1
                     },
                     {
+                        user : { id: user.id },
                         yyyymmdd: yesterday,
                         startAt : startAt + 96
                     },
                     {
+                        user : { id: user.id },
                         yyyymmdd: yesterday,
                         endAt : startAt + 97
                     }
