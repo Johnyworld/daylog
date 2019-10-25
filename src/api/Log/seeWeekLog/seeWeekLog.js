@@ -14,14 +14,12 @@ const getWeeks = (yyyymmdd) => {
     const whatWeek = Math.floor(( D + whatFirstDay -1 ) / 7);
 
     for ( let i=whatDay; i>=0; i-- ) {
-        const oneDay = new Date( Y, M, D-i );
-        const oneDayPrint = getYyyymmdd( oneDay.getFullYear(), oneDay.getMonth(), oneDay.getDate() ); 
+        const oneDayPrint = getYyyymmdd( new Date( Y, M, D-i )); 
         weeks = [ ...weeks, { yyyymmdd : oneDayPrint } ];
     }
 
     for ( let i=1; i<7-whatDay; i++ ) {
-        const oneDay = new Date( Y, M, D+i );
-        const oneDayPrint = getYyyymmdd( oneDay.getFullYear(), oneDay.getMonth(), oneDay.getDate() );   
+        const oneDayPrint = getYyyymmdd( new Date( Y, M, D+i ));   
         weeks = [ ...weeks, { yyyymmdd : oneDayPrint } ]; 
     }
 
