@@ -1,6 +1,9 @@
 {
   "name": "daylog",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.15.3"
+  },
   "description": "How much time did you waste today?",
   "main": "index.js",
   "repository": "https://github.com/johnyworld/daylog",
