@@ -81,6 +81,7 @@ type Pin {
   id: ID! @id
   user: User! @relation(name: "Pins_User")
   doing: Doing @relation(name: "Pins_Doing")
+  isFavorite: Boolean!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

@@ -10,7 +10,8 @@ export default {
             try {
                 await prisma.createPin({
                     user: { connect: { id: user.id }},
-                    doing: { connect: { id: doingId }}
+                    doing: { connect: { id: doingId }},
+                    isFavorite: false
                 })
                 return true;
             } catch {

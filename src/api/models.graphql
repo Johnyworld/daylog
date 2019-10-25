@@ -95,6 +95,7 @@ type Pin {
   id: ID!
   user: User!
   doing: Doing
+  isFavorite: Boolean!
   createdAt: String!
   updatedAt: String!
 }
