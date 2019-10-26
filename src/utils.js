@@ -39,7 +39,8 @@ export const timeToBlock = ( hour, minute ) => {
 }
 
 export const getYyyymmdd = ( date ) => {
-    return date.toISOString().substr(0, 10);
+    const offset = new Date().getTimezoneOffset() * 60000;
+    return new Date( date.getTime() - offset ).toISOString().substr(0, 10);
 }
 
 export const getToday = () => {
