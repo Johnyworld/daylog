@@ -39,20 +39,13 @@ export const timeToBlock = ( hour, minute ) => {
 }
 
 export const getYyyymmdd = ( date ) => {
-    // const offset = new Date().getTimezoneOffset() * 60000;
-    // return new Date( date.getTime() - offset ).toISOString().substr(0, 10);
     const Y = date.getFullYear();
     const M = date.getMonth() + 1;
     const D = date.getDate();
-    console.log(`${Y}-${(M>9?'':"0")+M}-${(D>9?'':"0")+D}`);
     return `${Y}-${(M>9?'':"0")+M}-${(D>9?'':"0")+D}`;
 }
 
-export const getToday = () => {
-    return getYyyymmdd( new Date() );
-}
-
-export const getYesterday = (yyyymmdd = getToday()) => {
+export const getYesterday = ( yyyymmdd ) => {
     const today = new Date( yyyymmdd );
     today.setDate( today.getDate()-1 );
     return getYyyymmdd( today );;

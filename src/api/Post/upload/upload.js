@@ -1,14 +1,13 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { getToday, getYesterday } from "../../../utils";
+import { getYesterday } from "../../../utils";
 
 export default {
     Mutation : {
         upload: async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
-            const { doingId, location="", startAt, score, option } = args;
+            const { doingId, location="", startAt, score, yyyymmdd, option } = args;
             const { user } = request;
 
-            const yyyymmdd = getToday();
             const yesterday = getYesterday(yyyymmdd);
 
             const postExists = await prisma.$exists.post({

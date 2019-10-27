@@ -18,7 +18,7 @@ server.express.use(logger("dev"));
 server.express.use(authenticateJwt);
 
 server.start({ port:PORT }, () =>
-    console.log(`GraphQL Server running on http://localhost:${PORT}`)
+    console.log(`✅GraphQL Server running on http://localhost:${PORT}`)
 );
 
 // 아래는 업로드 이미지 컨트롤러입니다.

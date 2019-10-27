@@ -1,13 +1,13 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { getToday, getYesterday } from "../../../utils";
+import { getYesterday } from "../../../utils";
 
 export default {
     Query : {
-        seeTodayPosts : (_, __, {request, isAuthenticated}) => {
+        seeTodayPosts : (_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
+            const { yyyymmdd } = args;
             const { user : { username } } = request;
 
-            const yyyymmdd = getToday();
             const yesterday = getYesterday(yyyymmdd);
             
             return prisma.posts({

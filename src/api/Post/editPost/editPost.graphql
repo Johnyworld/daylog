@@ -5,7 +5,8 @@ type Mutation {
         location:String, 
         score:Float,
         startAt:Int,
-        endAt:Int, 
+        endAt:Int,
+        yyyymmdd: String,
         type:String!
     ): Post!
 }

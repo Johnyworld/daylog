@@ -1,3 +1,3 @@
 type Mutation {
-    upload(doingId: String!, location:String, startAt:Int!, score:Float, option:String): Post!
+    upload(doingId: String!, location:String, startAt:Int!, score:Float, yyyymmdd:String!, option:String): Post!
 }

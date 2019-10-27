@@ -1,15 +1,14 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { getToday, getYesterday } from "../../../utils";
+import { getYesterday } from "../../../utils";
 
 export default {
     Mutation : {
         editPost: async(_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
-            const { id, doingId, location, score, startAt, endAt, type } = args;
+            const { id, doingId, location, score, startAt, endAt, yyyymmdd, type } = args;
             const { user } = request;
             const post = await prisma.$exists.post({ id, user : { id: user.id } });
-            const yyyymmdd = getToday();
-            const yesterday = getYesterday();
+            const yesterday = getYesterday(yyyymmdd);
 
             if ( post ) {
                 switch(type) {
@@ -30,11 +29,11 @@ export default {
                         yyyymmdd: yesterday
                     }});
 
-                    case "stEnYymd" : return prisma.updatePost({ where: { id }, data: { 
+                    case "cutTop" : return prisma.updatePost({ where: { id }, data: { 
                         startAt, endAt 
                     }});
 
-                    case "stEnYymd_YesterToToday" : return prisma.updatePost({ where: { id }, data: { 
+                    case "cutTop_YesterToToday" : return prisma.updatePost({ where: { id }, data: { 
                         startAt,
                         endAt,
                         yyyymmdd
