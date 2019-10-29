@@ -11,11 +11,12 @@ export default {
                 category: { connect: { id: categoryId }},
                 author: { connect: { id: user.id }},
             });
-            await prisma.createPin({
+            const pin = await prisma.createPin({
                 user: { connect: { id: user.id }},
-                doing: { connect: { id: doing.id }}
+                doing: { connect: { id: doing.id }},
+                isFavorite: false
             })
-            return doing;
+            return {doing, pin};
         }
     }
 }

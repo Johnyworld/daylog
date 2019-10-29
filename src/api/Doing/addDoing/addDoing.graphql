@@ -4,5 +4,10 @@ type Mutation {
         color:String!, 
         icon:String!, 
         categoryId:String!
-    ) : Doing!
+    ) : DoingAndPin!
+}
+
+type DoingAndPin {
+    doing: Doing!
+    pin: Pin!
 }
