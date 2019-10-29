@@ -40,7 +40,7 @@ const upload = multer({
         },
         max: true
     }),
-    limits: { fileSize: 1000000 }
+    limits: { fileSize: 5000000 }
 });
 
 server.express.post('/upload', upload.single('avatar'), async(req, res) => {
