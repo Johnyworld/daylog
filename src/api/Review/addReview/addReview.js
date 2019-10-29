@@ -4,16 +4,21 @@ export default {
     Mutation : {
         addReview: (_, args, {request, isAuthenticated}) => {
             isAuthenticated(request);
-            const { text, yyyymmdd } = args;
+            const { username, text, yyyymmdd } = args;
             const { user } = request;
-            if ( text !== "" ) {
-                return prisma.createReview({
-                    text, 
-                    yyyymmdd,
-                    user : { connect : { id : user.id } }
-                });
+
+            if ( user.username === username ) {
+                if ( text !== "" ) {
+                    return prisma.createReview({
+                        text, 
+                        yyyymmdd,
+                        user : { connect : { id : user.id } }
+                    });
+                } else {
+                    throw Error("Caption is empty!");
+                }
             } else {
-                throw Error("Caption is empty");
+                throw Error("Not your review!");
             }
         }
     }
