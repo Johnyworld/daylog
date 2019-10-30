@@ -38,6 +38,7 @@ const upload = multer({
             width: 160,
             height: 160
         },
+        rotate: true,
         max: true
     }),
     limits: { fileSize: 5000000 }
@@ -64,6 +65,7 @@ const iconUpload = multer({
             width: 48,
             height: 48
         },
+        rotate: true,
         max: true
     }),
     limits: { fileSize: 1000000 }
