@@ -26,14 +26,14 @@ export default {
             try {
                 const exists = await prisma.$exists.user({ OR: [ {username}, {email} ] });
                 if ( exists ) { throw Error("This username or email is already taken.") }
-
                 
                 const user = await prisma.createUser({ username, email, fullname, bio, lang, avatar });
 
                 defaultDoings.forEach( async doing => {
                     await prisma.createPin({
                         user: { connect: { id: user.id }},
-                        doing: { connect: { id: doing.id }}
+                        doing: { connect: { id: doing.id }},
+                        isFavorite: false
                     })
                 })
 
