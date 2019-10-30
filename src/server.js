@@ -68,7 +68,7 @@ const iconUpload = multer({
         rotate: true,
         max: true
     }),
-    limits: { fileSize: 1000000 }
+    limits: { fileSize: 5000000 }
 }); 
 
 server.express.post('/upload-icon', iconUpload.single('iconFile'), async(req, res) => {
