@@ -12,7 +12,8 @@ export default {
             const yesterday = getYesterday(yyyymmdd);
             const yesterdayLastPost = await prisma.posts({
                 where: { yyyymmdd: yesterday, user: { username } },
-                last: 1
+                orderBy: "endAt_DESC",
+                first: 1
             })
 
             let totalBlocks = getTotalBlocks(posts);
