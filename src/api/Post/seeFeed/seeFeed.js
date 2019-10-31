@@ -8,7 +8,7 @@ export default {
             const posts = await prisma.posts({
                 where: {
                     OR : [
-                        { user: { followers_some: { id: user.id } } },
+                        { user: { isPrivate: false, followers_some: { id: user.id }}},
                         { user: { id: user.id }}
                     ]
                 },
@@ -19,7 +19,7 @@ export default {
             const reviews = await prisma.reviews({
                 where: {
                     OR : [
-                        { user: { followers_some: { id: user.id } } },
+                        { user: { isPrivate: false, followers_some: { id: user.id }}},
                         { user: { id: user.id }}
                     ]
                 },
