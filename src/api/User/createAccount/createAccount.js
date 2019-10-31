@@ -13,7 +13,7 @@ const defaultDoings = [
 export default {
     Mutation : {
         createAccount : async(_, args) => {
-            const { username, email, fullname="", bio="", avatar="", lang } = args;
+            const { username, email, fullname="", bio="", avatar="", lang, isPrivate=false } = args;
 
             const regUsername = /^[a-z0-9_-]{3,16}$/; 
             const regFullname = /^[^0-9\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]{2,18}$/;
@@ -27,13 +27,13 @@ export default {
                 const exists = await prisma.$exists.user({ OR: [ {username}, {email} ] });
                 if ( exists ) { throw Error("This username or email is already taken.") }
                 
-                const user = await prisma.createUser({ username, email, fullname, bio, lang, avatar });
+                const user = await prisma.createUser({ username, email, fullname, bio, lang, avatar, isPrivate });
 
                 defaultDoings.forEach( async doing => {
                     await prisma.createPin({
                         user: { connect: { id: user.id }},
                         doing: { connect: { id: doing.id }},
-                        isFavorite: false
+                        isFavorite: false,
                     })
                 })
 

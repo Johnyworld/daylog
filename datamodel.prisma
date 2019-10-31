@@ -5,6 +5,7 @@ type User {
   fullname: String!
   avatar: String
   bio: String
+  isPrivate: Boolean!
   lang: String @default(value: "KR")
   followers: [User!]! @relation(name: "Follow")
   following: [User!]! @relation(name: "Follow")
