@@ -37,7 +37,8 @@ type Comment {
   id: ID! @id
   text: String!
   user: User! @relation(name: "Comments_User")
-  post: Post! @relation(name: "Comments_Post")
+  post: Post @relation(name: "Comments_Post")
+  review: Review @relation(name: "Comments_Review")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -93,6 +94,7 @@ type Review {
   yyyymmdd: String!
   user: User! @relation(name: "Review_User")
   likes: [Like!]! @relation(name: "Likes_Review")
+  comments: [Comment!]! @relation(name: "Comments_Review")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

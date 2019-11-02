@@ -47,7 +47,8 @@ type Comment {
   id: ID!
   text: String!
   user: User!
-  post: Post!
+  post: Post
+  review: Review
   createdAt: String!
   updatedAt: String!
 }
@@ -107,6 +108,8 @@ type Review {
   yyyymmdd: String!
   user: User!
   likes: [Like!]!
+  comments: [Comment!]!
+  commentsCount: Int!
   createdAt: String!
   updatedAt: String!
   isLiked: Boolean!
