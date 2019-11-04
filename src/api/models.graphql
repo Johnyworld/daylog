@@ -72,7 +72,7 @@ type Category {
 type Lang {
   id: ID!
   category: Category!
-  kr: String!
+  ko: String!
   en: String!
 }
 

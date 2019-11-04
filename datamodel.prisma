@@ -6,7 +6,7 @@ type User {
   avatar: String
   bio: String
   isPrivate: Boolean!
-  lang: String @default(value: "KR")
+  lang: String @default(value: "ko")
   followers: [User!]! @relation(name: "Follow")
   following: [User!]! @relation(name: "Follow")
   posts: [Post!]! @relation(name: "Posts_User")
@@ -62,7 +62,7 @@ type Category {
 type Lang {
   id: ID! @id
   category: Category! @relation(name: "Lang_Category")
-  kr: String!
+  ko: String!
   en: String!
 }
 

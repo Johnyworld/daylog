@@ -2,7 +2,7 @@ import { generateSecret, sendSecretMail } from "../../../utils";
 import { prisma } from "../../../../generated/prisma-client";
 
 const getWords = ({ lang }) => {
-    if ( lang === 'kr' ) {
+    if ( lang === 'ko' ) {
         return {
             subject : "님. 데이로그 로그인 인증 메일입니다. 🔒",
             greeting : "안녕하세요",
